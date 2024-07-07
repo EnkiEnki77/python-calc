@@ -30,6 +30,30 @@ def evaluate_operation(operator_chosen, first_number, second_number):
         print("You didnt choose properly")
 
 
+def next_steps(first_number, second_number):
+    """After the result of operation is given to the user determines what theyd like to do next"""
+    # Ask if theyd like to clear the calculator and start again, use the result for additional operations, or quit the program
+    what_to_do_next = "\nWould you like to?..."
+    what_to_do_next += "\n1.Clear the calculator and make another operation"
+    what_to_do_next += "\n2.Make another operation based on the most recent result"
+    what_to_do_next += "\n3.Quit the program?"
+    what_to_do_next += "\nYour choice: "
+
+    what_to_do_next = input(what_to_do_next)
+    # If theyd like to clear
+    if int(what_to_do_next) == 1:
+        # Clear the user input and result and start from the beginning of the program
+        first_number, second_number, result = None, None, None
+    # Else if theyd like to use the result for additional operations
+    elif int(what_to_do_next) == 2:
+        # Set the result as the first input and start the program again.
+        first_number = result
+        second_number, result = None, None
+    #Else if theyd like to quit
+    elif int(what_to_do_next) == 3:
+        # Quit the program
+        return "Break"
+
 
 def main():
     """Main entrypoint to execute the calculator"""
@@ -54,31 +78,14 @@ def main():
         # Ask user for second number
         second_number = input("Second operand: ")
             
-        result = evaluate_operation(operator_chosen, first_number, second_number)
-        
-        # Ask if theyd like to clear the calculator and start again, use the result for additional operations, or quit the program
-        what_to_do_next = "\nWould you like to?..."
-        what_to_do_next += "\n1.Clear the calculator and make another operation"
-        what_to_do_next += "\n2.Make another operation based on the most recent result"
-        what_to_do_next += "\n3.Quit the program?"
-        what_to_do_next += "\nYour choice: "
+        evaluate_operation(operator_chosen, first_number, second_number)
 
-        what_to_do_next = input(what_to_do_next)
-        # If theyd like to clear
-        if int(what_to_do_next) == 1:
-            # Clear the user input and result and start from the beginning of the program
-            first_number, second_number, result = None, None, None
-        # Else if theyd like to use the result for additional operations
-        elif int(what_to_do_next) == 2:
-            # Set the result as the first input and start the program again.
-            first_number = result
-            second_number, result = None, None
-        #Else if theyd like to quit
-        elif int(what_to_do_next) == 3:
-            # Quit the program
+        continue_or_break = next_steps()
+
+        if continue_or_break == 'Break':
             break
-
-
+        
+        
 if __name__ == "__main__":
     main()
 
